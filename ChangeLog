@@ -1,5 +1,8 @@
 Revision history for Perl extension Authen::Libwrap.
 
+0.21    Sun Jul 20 17:59:49 2008
+        - DMUEY fix rt 25239
+        
 0.20    Wed Dec 17 2003
         - re-org directories to fit current CPAN standards
         - switch from ExtUtils::MakeMaker to Module::Build

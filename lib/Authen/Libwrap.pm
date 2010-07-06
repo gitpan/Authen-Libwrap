@@ -170,12 +170,12 @@ use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $DEBUG);
 
 use constant STRING_UNKNOWN => "unknown";
 
-use XSLoader;
-use Exporter;
+require Exporter;
 
-use Carp                qw|croak|;
-use Scalar::Util        qw|reftype|;
-use Socket;
+use XSLoader ();
+use Carp ();
+use Scalar::Util ();
+use Socket ();
 
 @ISA = 'Exporter';
 
@@ -195,7 +195,7 @@ use Socket;
 }
 Exporter::export_ok_tags('all');
 
-$VERSION = '0.21';
+$VERSION = '0.22';
 
 # pull in the XS parts
 XSLoader::load 'Authen::Libwrap', $VERSION;
@@ -238,28 +238,28 @@ sub hosts_ctl
     
     # next arg could be a literal hostname or a socket or a glob
     no warnings 'uninitialized';
-    if( reftype  $_[0]  eq 'IO'     ||
-        reftype  $_[0]  eq 'GLOB'   ||
-        reftype \$_[0]  eq 'GLOB' )
+    if( Scalar::Util::reftype  $_[0]  eq 'IO'     ||
+        Scalar::Util::reftype  $_[0]  eq 'GLOB'   ||
+        Scalar::Util::reftype \$_[0]  eq 'GLOB' )
     {
         
         # get the peer address from the socket
         my $socket = shift;
         my(undef, $peer) = eval {
-            sockaddr_in(getpeername($socket))
+            Socket::sockaddr_in(getpeername($socket))
         };
-        croak "can't get peer address from socket" if $@;
+        Carp::croak "can't get peer address from socket" if $@;
         
         # get the IP addr
-        $ip_addr = inet_ntoa($peer) || STRING_UNKNOWN;
+        $ip_addr = Socket::inet_ntoa($peer) || STRING_UNKNOWN;
 
         if( $peer ) {
             
             # get IP address or set to unknown
-            $ip_addr = inet_ntoa($peer) || STRING_UNKNOWN;
+            $ip_addr = Socket::inet_ntoa($peer) || STRING_UNKNOWN;
             
             # get hostname or set to unknown
-            $hostname = gethostbyaddr($peer, &AF_INET)
+            $hostname = gethostbyaddr($peer, &Socket::AF_INET)
                 || STRING_UNKNOWN;
            
         } else {
@@ -274,7 +274,7 @@ sub hosts_ctl
     elsif( ref $_[0] ) {
         
         # ref but not one we can use
-        croak("can't use a ", ref $_[0], " as a socket");
+        Carp::croak("can't use a ", ref $_[0], " as a socket");
         
     }
     else {

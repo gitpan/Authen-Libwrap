@@ -1,22 +1,25 @@
 ---
-name: Authen-Libwrap
-version: 0.21
+abstract: "access to Wietse Venema's TCP Wrappers library"
 author:
   - 'James FitzGibbon, E<lt>jfitz@CPAN.orgE<gt>'
-abstract: "access to Wietse Venema's TCP Wrappers library"
-license: perl
-requires:
-  Scalar::Util: 0
 build_requires:
+  ExtUtils::CBuilder: 0
   Test::Exception: 0
   Test::More: 0
-generated_by: Module::Build version 0.2806
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: perl
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Authen-Libwrap
 provides:
   Authen::Libwrap:
     file: lib/Authen/Libwrap.pm
-    version: 0.21
+    version: 0.22
+requires:
+  Scalar::Util: 0
 resources:
   license: http://dev.perl.org/licenses/
+version: 0.22

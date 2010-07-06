@@ -1,5 +1,8 @@
 Revision history for Perl extension Authen::Libwrap.
 
+0.22    Sun Jul 06 17:59:49 2010
+        - thanks BDRACO: needless importing is slow
+
 0.21    Sun Jul 20 17:59:49 2008
         - DMUEY fix rt 25239
         
